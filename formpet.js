@@ -1,26 +1,53 @@
-const PetNameInput = document.getElementById("PetName")
-const ownerNameInput = document.getElementById("ownerName")
-const speciesInput = document.getElementById("species")
-const breedInput = document.getElementById("breed")
+let petNameField = document.getElementById("PetName")
+let ownerNameField= document.getElementById("ownerName")
+let speciesField = document.getElementById("species")
+let breedField = document.getElementById("breed")
+
+let petList = document.getElementById('petList')
+let addButton = document.getElementById('add')
+
+
+let pets = []
 
 class Pet {
-    constructor(_PetName, _ownerName, _species, _breed) {
-this.PetName = _PetName;
-this._ownerName = _ownerName;
-this._species = _species;
-this._breed = _breed ;
+    constructor(petName, ownerName, species, breed) {
+      this.petName = petName
+      this.ownerName = ownerName
+      this.species = species
+      this.breed = breed
     }
-}
-const form = document.getElementById("user-form");
+  
+    checkSameOwner(anotherPet) {
+      if (this.ownerName === anotherPet.ownerName) {
+        return true
+      } else {
+        return false
+      }
+    }
+  }
 
-form.addEventListener("submit", function(event){
-event.preventDefault();
-console.log("INVIO DEL FORM");
-const newPet = new Pet(
-    PetNameInput.value.trim(),
-    ownerNameInput.value.trim(),
-    speciesInput.value.trim(),
-    breedInput.value.trim()
-);
-console.log("Nuovo per registrato:", newPet);
-});
+  const renderList = function() {
+    petList.innerHTML = ""
+    pets.forEach ((pet) => {
+        const newLi = document.createElement("li")
+        newLi.innerText =
+        "Nome:" + pet.petName + ", proprietario" + pet.ownerName
+        petList.appendChild(newLi)
+    })
+  }
+ addButton.onclick = function (){
+    let newPet = new Pet (
+        petNameField.value,
+        ownerNameField.value,
+        speciesField.value,
+        breedField,value
+    )
+    pets.push(newPet)
+    renderList()
+    petNameField.value = ""
+    ownerNameField.value = ""
+    speciesField.value = ""
+    breedField.value = ""
+ }
+
+
